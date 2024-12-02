@@ -5,10 +5,11 @@ from datetime import datetime
 
 
 class DementiaLevel(str, Enum):
-    NORMAL = "NORMAL"
-    MILD = "MILD"
-    MODERATE = "MODERATE"
-    SEVERE = "SEVERE"
+    NON_DEMENTED = "NON_DEMENTED"
+    VERY_MILD_DEMENTED = "VERY_MILD_DEMENTED"
+    MILD_DEMENTED = "MILD_DEMENTED"
+    MODERATE_DEMENTED = "MODERATE_DEMENTED"
+    SEVERE_DEMENTED = "SEVERE_DEMENTED"
 
 
 class TreatmentPlanOutput(BaseModel):
@@ -16,7 +17,7 @@ class TreatmentPlanOutput(BaseModel):
     last_name: Optional[str]
     dementia_level: DementiaLevel
     visit_frequency: Optional[int]
-    treatment_recommendation: Optional[str]
+    treatment_recommendation: Optional[tuple]
     next_appointment: Optional[str]
     error: Optional[str] = None
 

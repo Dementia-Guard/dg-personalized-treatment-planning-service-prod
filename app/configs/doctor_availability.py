@@ -52,10 +52,11 @@ class DoctorAvailability:
 
         # Prioritization logic for appointment slots based on dementia level
         priority_order = {
-            'SEVERE': 0,
-            'MODERATE': 1,
-            'MILD': 2,
-            'NORMAL': 3
+            'NON_DEMENTED': 0,
+            'VERY_MILD_DEMENTED': 1,
+            'MILD_DEMENTED': 2,
+            'MODERATE_DEMENTED': 3,
+            'SEVERE_DEMENTED': 4
         }
 
         # Look ahead for 14 days to find an appropriate slot

@@ -21,6 +21,7 @@ class PatientInput(BaseModel):
     )
     additionalNotes: Optional[str] = Field(None, max_length=500, description="Additional patient notes")
     fullName: str
+    caregiverAvailability: str
 
     @field_validator("firstName", "lastName")
     def name_must_not_be_empty(cls, v: str) -> str:

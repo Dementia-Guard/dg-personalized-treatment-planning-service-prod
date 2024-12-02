@@ -13,6 +13,7 @@ class TreatmentPlanService:
             "lastName": patient.lastName,
             "cdr_Score": patient.cdrScore,
             "mmse_Score": patient.mmseScore,
+            "caregiverAvailability": patient.caregiverAvailability,
         }
         treatment_plan = self.expert_system.generate_treatment_plan(patient_data)
         if not treatment_plan:
