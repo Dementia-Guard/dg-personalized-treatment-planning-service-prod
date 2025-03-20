@@ -53,9 +53,10 @@ class DementiaExpertSystem(KnowledgeEngine):
             dementia_level=DementiaLevel.NON_DEMENTED,
             visit_frequency=365,
             treatment_recommendation=(
-                "1. Annual cognitive screenings.",
-                "2. Maintain healthy diet and regular exercise.",
-                "3. Monitor for any signs of cognitive decline."
+                "1. Annual cognitive screenings using multiple tools (MMSE, MoCA).",
+                "2. Mediterranean diet, regular aerobic exercise (150 min/week), cognitive stimulation.",
+                "3. Manage vascular risk factors (hypertension, diabetes, cholesterol) and avoid smoking/excessive alcohol.",
+                "4. Establish cognitive baseline and educate on early warning signs of cognitive decline."
             ),
             next_appointment=next_appointment['full_datetime']
         ))
@@ -69,9 +70,10 @@ class DementiaExpertSystem(KnowledgeEngine):
             dementia_level=DementiaLevel.NON_DEMENTED,
             visit_frequency=365,
             treatment_recommendation=(
-                "1. Annual cognitive screenings.",
-                "2. Suggest patient join a social group for mental stimulation.",
-                "3. Educate family about monitoring cognitive health."
+                "1. Annual cognitive screenings using multiple assessment tools (MMSE, MoCA).",
+                "2. Suggest patient join cognitive stimulation groups and social activities.",
+                "3. Optimize management of medical conditions that may affect cognition.",
+                "4. Discuss advance care planning while decision-making capacity is intact."
             ),
             next_appointment=next_appointment['full_datetime']
         ))
@@ -86,9 +88,11 @@ class DementiaExpertSystem(KnowledgeEngine):
             dementia_level=DementiaLevel.VERY_MILD_DEMENTED,
             visit_frequency=180,
             treatment_recommendation=(
-                "1. Introduce cognitive exercises.",
-                "2. Train caregivers for early dementia management.",
-                "3. Maintain structured routines and regular follow-ups."
+                "1. Implement structured cognitive exercises and memory training (20-30 min daily).",
+                "2. Train caregivers in communication techniques and early dementia management.",
+                "3. Consider cholinesterase inhibitors if symptoms progress.",
+                "4. Schedule hearing/vision assessment and optimize sensory function.",
+                "5. Maintain social engagement and meaningful activities with caregiver support."
             ),
             next_appointment=next_appointment['full_datetime']
         ))
@@ -102,9 +106,11 @@ class DementiaExpertSystem(KnowledgeEngine):
             dementia_level=DementiaLevel.VERY_MILD_DEMENTED,
             visit_frequency=180,
             treatment_recommendation=(
-                "1. Encourage cognitive exercises and social interactions.",
-                "2. Recommend community programs for caregiver support.",
-                "3. Provide educational resources on dementia care."
+                "1. Engage in community-based cognitive stimulation programs (2-3 times weekly).",
+                "2. Connect with local dementia support services and caregiver resources.",
+                "3. Implement memory aids and reminder systems in the home environment.",
+                "4. Establish medication management system and evaluate transportation needs.",
+                "5. Consider technological solutions for remote monitoring and support."
             ),
             next_appointment=next_appointment['full_datetime']
         ))
@@ -119,9 +125,11 @@ class DementiaExpertSystem(KnowledgeEngine):
             dementia_level=DementiaLevel.MILD_DEMENTED,
             visit_frequency=90,
             treatment_recommendation=(
-                "1. Begin memory aids and structured routines.",
-                "2. Regular follow-ups to monitor progression.",
-                "3. Cognitive stimulation therapies and low-dose medications if needed."
+                "1. Initiate cholinesterase inhibitors (donepezil, rivastigmine, or galantamine).",
+                "2. Implement comprehensive memory aids, calendars, and structured daily routines.",
+                "3. Caregiver training on managing emerging behavioral symptoms and communication strategies.",
+                "4. Home safety assessment and modifications to prevent falls and wandering.",
+                "5. Begin discussions about advance directives and long-term care planning."
             ),
             next_appointment=next_appointment['full_datetime']
         ))
@@ -135,9 +143,11 @@ class DementiaExpertSystem(KnowledgeEngine):
             dementia_level=DementiaLevel.MILD_DEMENTED,
             visit_frequency=90,
             treatment_recommendation=(
-                "1. Introduce cognitive rehabilitation and support groups.",
-                "2. Consider a visiting caregiver or family member for assistance.",
-                "3. Promote routine and structure in daily activities."
+                "1. Initiate medication therapy with close monitoring for adherence and side effects.",
+                "2. Arrange visiting nurse or home care services (2-3 times weekly) for medication management.",
+                "3. Connect with adult day programs specializing in dementia care.",
+                "4. Install home monitoring systems and medication reminder technology.",
+                "5. Evaluate capacity for independent living and explore supportive housing options."
             ),
             next_appointment=next_appointment['full_datetime']
         ))
@@ -152,9 +162,11 @@ class DementiaExpertSystem(KnowledgeEngine):
             dementia_level=DementiaLevel.MODERATE_DEMENTED,
             visit_frequency=60,
             treatment_recommendation=(
-                "1. Introduce medication to slow cognitive decline.",
-                "2. Educate caregivers on handling behavioral symptoms.",
-                "3. Regular medical evaluations and introduce safety measures at home."
+                "1. Optimize pharmacological management: cholinesterase inhibitors and consider memantine.",
+                "2. Implement non-pharmacological approaches for behavioral symptoms (redirection, routine).",
+                "3. Caregiver training on managing activities of daily living and preventing caregiver burnout.",
+                "4. Assess and treat co-morbid conditions that may worsen cognition or function.",
+                "5. Evaluate need for assistive devices, home modifications, and respite care services."
             ),
             next_appointment=next_appointment['full_datetime']
         ))
@@ -168,9 +180,11 @@ class DementiaExpertSystem(KnowledgeEngine):
             dementia_level=DementiaLevel.MODERATE_DEMENTED,
             visit_frequency=60,
             treatment_recommendation=(
-                "1. Introduce medications for agitation and behavioral issues.",
-                "2. Promote safety at home, and consider installing monitoring systems.",
-                "3. Educate the family about dementia progression and caregiving."
+                "1. Arrange comprehensive home care services or consider assisted living placement.",
+                "2. Implement medication management system with professional oversight.",
+                "3. Establish guardianship or power of attorney if not already in place.",
+                "4. Coordinate multidisciplinary care team (geriatrics, neurology, social work).",
+                "5. Implement fall prevention strategies and regular nutrition assessment."
             ),
             next_appointment=next_appointment['full_datetime']
         ))
@@ -185,9 +199,11 @@ class DementiaExpertSystem(KnowledgeEngine):
             dementia_level=DementiaLevel.SEVERE_DEMENTED,
             visit_frequency=30,
             treatment_recommendation=(
-                "1. Implement comprehensive end-of-life care.",
-                "2. Consider full-time care facilities.",
-                "3. Address medical complications and improve quality of life."
+                "1. Focus on comfort care and quality of life measures rather than cognitive enhancement.",
+                "2. Provide caregiver training on late-stage dementia care, including feeding techniques.",
+                "3. Address common complications: infection prevention, skin care, pain management.",
+                "4. Consider palliative care consultation and discuss goals of care.",
+                "5. Evaluate medication appropriateness and discontinue unnecessary treatments."
             ),
             next_appointment=next_appointment['full_datetime']
         ))
@@ -201,9 +217,11 @@ class DementiaExpertSystem(KnowledgeEngine):
             dementia_level=DementiaLevel.SEVERE_DEMENTED,
             visit_frequency=30,
             treatment_recommendation=(
-                "1. Move to a full-time care facility.",
-                "2. Assign a multidisciplinary care team.",
-                "3. Implement a comprehensive end-of-life care plan."
+                "1. Facilitate placement in specialized memory care or skilled nursing facility.",
+                "2. Implement palliative care approach focused on comfort and dignity.",
+                "3. Establish clear advance directives regarding hospitalization and life-sustaining treatments.",
+                "4. Create sensory stimulation program tailored to remaining abilities.",
+                "5. Coordinate care conferences with facility staff and any involved family members."
             ),
             next_appointment=next_appointment['full_datetime']
         ))
