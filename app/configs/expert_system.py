@@ -1,9 +1,7 @@
 from experta import *
-from datetime import datetime, timedelta
 from enum import Enum, auto
 from typing import Dict, Any
 import logging
-from .doctor_availability import DoctorAvailability
 
 # Configure logging
 logging.basicConfig(level=logging.INFO)
@@ -28,27 +26,23 @@ class TreatmentPlan(Fact):
     dementia_level: DementiaLevel
     visit_frequency: int
     treatment_recommendation: tuple
-    next_appointment: str
 
-    def __init__(self, dementia_level: DementiaLevel, visit_frequency: int, treatment_recommendation: tuple, next_appointment: str):
+    def __init__(self, dementia_level: DementiaLevel, visit_frequency: int, treatment_recommendation: tuple):
         super().__init__()
         self.dementia_level = dementia_level
         self.visit_frequency = visit_frequency
         self.treatment_recommendation = treatment_recommendation
-        self.next_appointment = next_appointment
 
 
 class DementiaExpertSystem(KnowledgeEngine):
     def __init__(self):
         super().__init__()
-        self.doctor_availability = DoctorAvailability()
 
     # Non-Demented (Normal cognition)
     @Rule(PatientInfo(cdr_Score=P(lambda x: x == 0.0),
                       mmse_Score=P(lambda x: x >= 24.0),
                       caregiver_Availability="AVAILABLE"))
     def non_demented_available(self):
-        next_appointment = self.doctor_availability.find_next_available_slot('NON_DEMENTED')
         self.declare(TreatmentPlan(
             dementia_level=DementiaLevel.NON_DEMENTED,
             visit_frequency=365,
@@ -58,14 +52,12 @@ class DementiaExpertSystem(KnowledgeEngine):
                 "3. Manage vascular risk factors (hypertension, diabetes, cholesterol) and avoid smoking/excessive alcohol.",
                 "4. Establish cognitive baseline and educate on early warning signs of cognitive decline."
             ),
-            next_appointment=next_appointment['full_datetime']
         ))
 
     @Rule(PatientInfo(cdr_Score=P(lambda x: x == 0.0),
                       mmse_Score=P(lambda x: x >= 24.0),
                       caregiver_Availability="NONE"))
     def non_demented_no_caregiver(self):
-        next_appointment = self.doctor_availability.find_next_available_slot('NON_DEMENTED')
         self.declare(TreatmentPlan(
             dementia_level=DementiaLevel.NON_DEMENTED,
             visit_frequency=365,
@@ -75,7 +67,6 @@ class DementiaExpertSystem(KnowledgeEngine):
                 "3. Optimize management of medical conditions that may affect cognition.",
                 "4. Discuss advance care planning while decision-making capacity is intact."
             ),
-            next_appointment=next_appointment['full_datetime']
         ))
 
     # Very Mild Demented
@@ -83,7 +74,6 @@ class DementiaExpertSystem(KnowledgeEngine):
                       mmse_Score=P(lambda x: 22.0 <= x <= 23.0),
                       caregiver_Availability="AVAILABLE"))
     def very_mild_demented_available(self):
-        next_appointment = self.doctor_availability.find_next_available_slot('VERY_MILD_DEMENTED')
         self.declare(TreatmentPlan(
             dementia_level=DementiaLevel.VERY_MILD_DEMENTED,
             visit_frequency=180,
@@ -94,14 +84,12 @@ class DementiaExpertSystem(KnowledgeEngine):
                 "4. Schedule hearing/vision assessment and optimize sensory function.",
                 "5. Maintain social engagement and meaningful activities with caregiver support."
             ),
-            next_appointment=next_appointment['full_datetime']
         ))
 
     @Rule(PatientInfo(cdr_Score=P(lambda x: 0.0 < x <= 0.5),
                       mmse_Score=P(lambda x: 22.0 <= x <= 23.0),
                       caregiver_Availability="NONE"))
     def very_mild_demented_no_caregiver(self):
-        next_appointment = self.doctor_availability.find_next_available_slot('VERY_MILD_DEMENTED')
         self.declare(TreatmentPlan(
             dementia_level=DementiaLevel.VERY_MILD_DEMENTED,
             visit_frequency=180,
@@ -112,7 +100,6 @@ class DementiaExpertSystem(KnowledgeEngine):
                 "4. Establish medication management system and evaluate transportation needs.",
                 "5. Consider technological solutions for remote monitoring and support."
             ),
-            next_appointment=next_appointment['full_datetime']
         ))
 
     # Mild Demented
@@ -120,7 +107,6 @@ class DementiaExpertSystem(KnowledgeEngine):
                       mmse_Score=P(lambda x: 19.0 <= x <= 21.0),
                       caregiver_Availability="AVAILABLE"))
     def mild_demented_available(self):
-        next_appointment = self.doctor_availability.find_next_available_slot('MILD_DEMENTED')
         self.declare(TreatmentPlan(
             dementia_level=DementiaLevel.MILD_DEMENTED,
             visit_frequency=90,
@@ -131,14 +117,12 @@ class DementiaExpertSystem(KnowledgeEngine):
                 "4. Home safety assessment and modifications to prevent falls and wandering.",
                 "5. Begin discussions about advance directives and long-term care planning."
             ),
-            next_appointment=next_appointment['full_datetime']
         ))
 
     @Rule(PatientInfo(cdr_Score=P(lambda x: 0.5 < x <= 1.0),
                       mmse_Score=P(lambda x: 19.0 <= x <= 21.0),
                       caregiver_Availability="NONE"))
     def mild_demented_no_caregiver(self):
-        next_appointment = self.doctor_availability.find_next_available_slot('MILD_DEMENTED')
         self.declare(TreatmentPlan(
             dementia_level=DementiaLevel.MILD_DEMENTED,
             visit_frequency=90,
@@ -149,7 +133,6 @@ class DementiaExpertSystem(KnowledgeEngine):
                 "4. Install home monitoring systems and medication reminder technology.",
                 "5. Evaluate capacity for independent living and explore supportive housing options."
             ),
-            next_appointment=next_appointment['full_datetime']
         ))
 
     # Moderate Demented
@@ -157,7 +140,6 @@ class DementiaExpertSystem(KnowledgeEngine):
                       mmse_Score=P(lambda x: 10.0 <= x <= 18.0),
                       caregiver_Availability="AVAILABLE"))
     def moderate_demented_available(self):
-        next_appointment = self.doctor_availability.find_next_available_slot('MODERATE_DEMENTED')
         self.declare(TreatmentPlan(
             dementia_level=DementiaLevel.MODERATE_DEMENTED,
             visit_frequency=60,
@@ -168,14 +150,12 @@ class DementiaExpertSystem(KnowledgeEngine):
                 "4. Assess and treat co-morbid conditions that may worsen cognition or function.",
                 "5. Evaluate need for assistive devices, home modifications, and respite care services."
             ),
-            next_appointment=next_appointment['full_datetime']
         ))
 
     @Rule(PatientInfo(cdr_Score=P(lambda x: 1.0 < x <= 2.0),
                       mmse_Score=P(lambda x: 10.0 <= x <= 18.0),
                       caregiver_Availability="NONE"))
     def moderate_demented_no_caregiver(self):
-        next_appointment = self.doctor_availability.find_next_available_slot('MODERATE_DEMENTED')
         self.declare(TreatmentPlan(
             dementia_level=DementiaLevel.MODERATE_DEMENTED,
             visit_frequency=60,
@@ -186,7 +166,6 @@ class DementiaExpertSystem(KnowledgeEngine):
                 "4. Coordinate multidisciplinary care team (geriatrics, neurology, social work).",
                 "5. Implement fall prevention strategies and regular nutrition assessment."
             ),
-            next_appointment=next_appointment['full_datetime']
         ))
 
     # Severe Demented
@@ -194,7 +173,6 @@ class DementiaExpertSystem(KnowledgeEngine):
                       mmse_Score=P(lambda x: x < 10.0),
                       caregiver_Availability="AVAILABLE"))
     def severe_demented_available(self):
-        next_appointment = self.doctor_availability.find_next_available_slot('SEVERE_DEMENTED')
         self.declare(TreatmentPlan(
             dementia_level=DementiaLevel.SEVERE_DEMENTED,
             visit_frequency=30,
@@ -205,14 +183,12 @@ class DementiaExpertSystem(KnowledgeEngine):
                 "4. Consider palliative care consultation and discuss goals of care.",
                 "5. Evaluate medication appropriateness and discontinue unnecessary treatments."
             ),
-            next_appointment=next_appointment['full_datetime']
         ))
 
     @Rule(PatientInfo(cdr_Score=P(lambda x: x > 2.0),
                       mmse_Score=P(lambda x: x < 10.0),
                       caregiver_Availability="NONE"))
     def severe_demented_no_caregiver(self):
-        next_appointment = self.doctor_availability.find_next_available_slot('SEVERE_DEMENTED')
         self.declare(TreatmentPlan(
             dementia_level=DementiaLevel.SEVERE_DEMENTED,
             visit_frequency=30,
@@ -223,7 +199,6 @@ class DementiaExpertSystem(KnowledgeEngine):
                 "4. Create sensory stimulation program tailored to remaining abilities.",
                 "5. Coordinate care conferences with facility staff and any involved family members."
             ),
-            next_appointment=next_appointment['full_datetime']
         ))
 
     # Treatment Plan Generation
@@ -237,7 +212,9 @@ class DementiaExpertSystem(KnowledgeEngine):
                     'lastName': str(patient_data.get('lastName', 'Unknown')),
                     'cdr_Score': float(patient_data['cdr_Score']),
                     'mmse_Score': float(patient_data['mmse_Score']),
-                    'caregiver_Availability': str(patient_data.get('caregiverAvailability', 'Unknown'))
+                    'caregiver_Availability': str(patient_data.get('caregiverAvailability', 'Unknown')),
+                    'appointmentDate': str(patient_data.get('appointmentDate', 'Unknown')),
+                    'timeSlot': str(patient_data.get('timeSlot', 'Unknown'))
                 }
             except (ValueError, TypeError, KeyError) as e:
                 logger.error(f"Invalid patient data: {e}")
@@ -270,7 +247,8 @@ class DementiaExpertSystem(KnowledgeEngine):
                         'dementia_level': current_fact.dementia_level.name,
                         'visit_frequency': current_fact.visit_frequency,
                         'treatment_recommendation': current_fact.treatment_recommendation,
-                        'next_appointment': current_fact.next_appointment,
+                        'appointmentDate': validated_data['appointmentDate'],
+                        'timeSlot': validated_data['timeSlot'],
                     }
                     logger.info(f"TreatmentPlan: {treatment_plan}")
                     break
@@ -283,7 +261,8 @@ class DementiaExpertSystem(KnowledgeEngine):
                     'dementia_level': None,
                     'visit_frequency': None,
                     'treatment_recommendation': None,
-                    'next_appointment': None,
+                    'appointmentDate': None,
+                    'timeSlot': None,
                     'error': "No treatment plan generated"
                 }
 

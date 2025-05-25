@@ -1,4 +1,4 @@
-from pydantic import BaseModel, Field
+from pydantic import BaseModel
 from enum import Enum
 from typing import Optional
 from datetime import datetime
@@ -18,7 +18,8 @@ class TreatmentPlanOutput(BaseModel):
     dementia_level: DementiaLevel
     visit_frequency: Optional[int]
     treatment_recommendation: Optional[tuple]
-    next_appointment: Optional[str]
+    appointmentDate: Optional[str]
+    timeSlot: Optional[str]
     error: Optional[str] = None
 
     class Config:

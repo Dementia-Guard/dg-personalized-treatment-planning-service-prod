@@ -1,6 +1,6 @@
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
-from app.routers import treatment_plan, availability
+from app.routers import treatment_plan
 
 API_VERSION = "v1"
 
@@ -20,14 +20,13 @@ app.add_middleware(
 )
 
 # Include routers
-app.include_router(treatment_plan.router, prefix=f"/api/{API_VERSION}/treatment-plan")
-app.include_router(availability.router, prefix=f"/api/{API_VERSION}/availability")
+app.include_router(treatment_plan.router, tags=["TreatmentPlan"])
 
 
 @app.get("/")
 async def root():
     return {
-        "message": "Welcome to the Dementia Treatment Planner API",
+        "message": "Welcome to Dementia Treatment Planner API",
         "version": "1.0.0",
-        "endpoints": [f"/api/{API_VERSION}/treatment-plan", f"/api/{API_VERSION}/availability"]
+        "endpoints": [f"/api/{API_VERSION}/treatment-plan"]
     }

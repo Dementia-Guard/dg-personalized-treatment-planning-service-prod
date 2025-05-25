@@ -9,25 +9,19 @@ logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)
 logger.setLevel(logging.INFO)
 
-router = APIRouter(tags=["Treatment Plan"])
+router = APIRouter()
 
 treatment_plan_service = TreatmentPlanService()
 
 
 @router.post(
-    "/",
+    "/plan",
     response_model=TreatmentPlanOutput,
     status_code=status.HTTP_200_OK,
     summary="Generate Dementia Treatment Plan",
-    description="Generate a personalized treatment plan based on patient data and doctor's availability."
+    description="Generate a personalized treatment plan based on patient data."
 )
 async def create_treatment_plan(patient: PatientInput):
-    # logger.info(f"firstName type: {type(patient.firstName)}")  # Should be <class 'str'>
-    # logger.info(f"lastName type: {type(patient.lastName)}")  # Should be <class 'str'>
-    # logger.info(f"cdrScore type: {type(patient.cdrScore)}")  # Should be <class 'float'> or <class 'NoneType'>
-    # logger.info(f"mmseScore type: {type(patient.mmseScore)}")  # Should be <class 'float'> or <class 'NoneType'>
-    # logger.info(f"cdrScore type: {patient.cdrScore}")  # Should be <class 'float'> or <class 'NoneType'>
-    # logger.info(f"mmseScore type: {patient.mmseScore}")  # Should be <class 'float'> or <class 'NoneType'>
 
     if patient.cdrScore is None or patient.mmseScore is None:
         logger.info(f"Invalid data: cdrScore = {patient.cdrScore}, mmseScore = {patient.mmseScore}")
